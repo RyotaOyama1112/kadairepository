@@ -1,4 +1,4 @@
-package login;
+package Login;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,11 +18,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	public LoginServlet() {
-		super();
-
+		super();	
 	}
+	
+
 
 	//送られてきたユーザーIDとパスワードを元にDBに接続しログイン認証を行う
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -92,6 +92,9 @@ public class LoginServlet extends HttpServlet {
 
 		RequestDispatcher rd2 = request.getRequestDispatcher(path);
 		rd2.forward(request, response);
+	
 	}
-
-}
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// TODO Auto-generated method stub
+	doPost(request, response);
+}}

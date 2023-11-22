@@ -38,19 +38,20 @@
   <h2><%= msg %></h2>
 <table border="1">
   <tr>
+  　<th width="50">no</th>
     <th width="50">有給日時</th>
     <th width="50">詳細ボタン</th>
   </tr>
 <%
 for(int i = 0; i < kdto.size(); i++){
     KanrisyaBean kb = kdto.get(i);
-    num = 0;
 %>
   <tr>
+  <td align="center"><%= i %></td>
     <td align="center"><%= kb.getYoteibi() %></td>
     <td align="center">
     <form action="Syousai" method="post">
-    <input type="submit" value="<%= i %>" name="suuji<%= num++ %>">
+    <button type="submit" value="<%= i %>">詳細</button>
     </form>
     </td>
   </tr>

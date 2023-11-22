@@ -54,10 +54,10 @@ public class KanrisyaDAO {
     return kdto;
   }
   
-  public int update(int kanriFlg) {
-	    String sql = "UPDATE 有給申請 SET status_name = " + kanriFlg; 
-	    return executeSql(sql);
-	  }
+  //public int update(String userID,String int kanriFlg) {
+	   // String sql = "UPDATE 有給申請 SET status_name = " + kanriFlg + "where userID=" + userID + "," + "yoteibi=" + yoteibi; 
+	    //return executeSql(sql);
+	  //}
 	 
 	  
 	  public int executeSql(String sql) {

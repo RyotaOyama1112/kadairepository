@@ -20,9 +20,11 @@ public class henkouServlet extends HttpServlet {
 		
 		//DAOオブジェクトを生成
 		KanrisyaDAO kdao = new KanrisyaDAO();
+		
+		//KanrisyaBean kb = kdto.get();
 
 		int kanriFlg = Integer.valueOf(req.getParameter("status"));
-		kdao.update(kanriFlg);
+		//kdao.update(kanriFlg);
 
 
 		//JSPにフォワード

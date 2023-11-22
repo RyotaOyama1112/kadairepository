@@ -24,6 +24,7 @@ String url_name = "http://localhost:8080/Yukyu/loginKanrisya.jsp";
   <option value="0">選択してください</option>
   <option value="1">申請中</option>
   <option value="3">承認済</option>
+  <input type="submit"name="btn" value="変更">
   </form>
   <a>href=<%=url_name%>>戻る</a>
 </body>
