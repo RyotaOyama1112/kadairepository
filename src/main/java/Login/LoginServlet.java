@@ -1,9 +1,6 @@
 package Login;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,86 +12,67 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.DatabaseConnector;
+import DAO.loginCheck;
+
+//DatabaseConnectorクラスの変更は不要と仮定
+
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	public LoginServlet() {
-		super();	
-	}
-	
+ private static final long serialVersionUID = 1L;
 
+ public LoginServlet() {
+     super();
+ }
+//送られてきたユーザーIDとパスワードを元にDBに接続しログイン認証を行う
+ protected void doPost(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
 
-	//送られてきたユーザーIDとパスワードを元にDBに接続しログイン認証を行う
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	// ユーザーから送信されたユーザーIDとパスワードを取得する。
+     String userId = request.getParameter("user_id");
+     String password = request.getParameter("password");
 
-		// ユーザーから送信されたユーザーIDとパスワードを取得する。
-		String userId = request.getParameter("user_id");
-		String password = request.getParameter("password");
-				
-		// ログイン認証後に遷移する先を格納する
-		String path = "";
+  // ログイン認証後に遷移する先を格納する
+     String path = "";
 
-		try {
-			// mySQLに接続するためのURL
-			String url = "jdbc:mysql://localhost/yukyudb";
-			String user = "root";
-			String pass = "4649";
+     try {
+         String sql = "SELECT userID,Busyo,KanriFlg FROM user情報 WHERE userID=? AND password=?";
+         try (ResultSet res = DatabaseConnector.executeQuery(sql, userId, password)) {
 
-			/*
-			 * 実行するSQL
-			 * idとpasswordが一致するユーザーのidをとってくる
-			 */
-			String sql = "SELECT userID,Busyo,KanriFlg FROM user情報 WHERE userID=? AND password=?";
+        	// ユーザーIDとパスワードが一致するユーザーが存在した時
+        	 if (res.next()) {
+                 HttpSession session = request.getSession(true);
+                 session.setAttribute("user_id", res.getString("userID"));
+                 session.setAttribute("user_busyo", res.getString("Busyo"));
+                 session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
 
-			// SQLに接続する
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			try (Connection con = DriverManager.getConnection(url, user, pass);
-					PreparedStatement pstmt = con.prepareStatement(sql)) {
+                 loginCheck lDAO = new loginCheck();
+                 int kanriFlg = lDAO.getFlg(userId);
 
-				// 入力されたユーザーIDとパスワードをSQLの条件にする
-				pstmt.setString(1, userId);
-				pstmt.setString(2, password);
+                 if (kanriFlg == 1) {
+                     path = "loginJugyouin.jsp";
+                  // 従業員画面に遷移する
+                 } else if (kanriFlg == 3) {
+                	// 管理者画面に遷移する
+                     path = "loginKanrisya.jsp";
+                 }
+             } else {
+            	// ログイン失敗の文言を追加する
+                 request.setAttribute("loginFailure", "ログインに失敗しました");
+                 
+              // ログインに失敗したときはもう一度ログイン画面を表示する
+                 path = "login.jsp";
+             }
+         }
+     } catch (ClassNotFoundException | SQLException e) {
+         e.printStackTrace();     }
 
-				// SQLの実行
-				ResultSet res = pstmt.executeQuery();
-				
+     RequestDispatcher rd2 = request.getRequestDispatcher(path);
+     rd2.forward(request, response);
+ }
 
-
-				// ユーザーIDとパスワードが一致するユーザーが存在した時
-				if (res.next()) {
-					HttpSession session = request.getSession(true);
-					// user_idをリクエストスコープに設定する
-					session.setAttribute("user_id", res.getString("userID"));
-					session.setAttribute("user_busyo", res.getString("Busyo"));
-					session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
-		
-					loginCheck lDAO = new loginCheck();
-					int kanriFlg = lDAO.getFlg(userId);
-					if(kanriFlg == 1){
-					// 従業員画面に遷移する
-					path = "loginJugyouin.jsp";
-					}else if(kanriFlg == 3) {
-					// 管理者画面に遷移する
-					path = "loginKanrisya.jsp";	
-					}
-				} else {
-					// ログイン失敗の文言を追加する
-					request.setAttribute("loginFailure", "ログインに失敗しました");
-
-					// ログインに失敗したときはもう一度ログイン画面を表示する
-					path = "login.jsp";
-				}
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
-		RequestDispatcher rd2 = request.getRequestDispatcher(path);
-		rd2.forward(request, response);
-	
-	}
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	// TODO Auto-generated method stub
-	doPost(request, response);
-}}
+ protected void doGet(HttpServletRequest request, HttpServletResponse response)
+         throws ServletException, IOException {
+     doPost(request, response);
+ }
+}
