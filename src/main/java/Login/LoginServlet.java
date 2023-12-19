@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.DatabaseConnector;
-import DAO.loginCheck;
+import DAO.LoginCheck;
 
 //DatabaseConnectorクラスの変更は不要と仮定
 
@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
                  session.setAttribute("user_busyo", res.getString("Busyo"));
                  session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
 
-                 loginCheck lDAO = new loginCheck();
+                 LoginCheck lDAO = new LoginCheck();
                  int kanriFlg = lDAO.getFlg(userId);
 
                  if (kanriFlg == 1) {

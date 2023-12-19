@@ -28,7 +28,4 @@ public class DatabaseConnector {
             return pstmt.executeQuery();
         }
     }
-
-    // 他にも必要なメソッドがあれば追加できます
-
 }
