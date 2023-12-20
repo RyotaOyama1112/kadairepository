@@ -26,7 +26,7 @@ String url_name = "http://localhost:8080/Yukyu/insertForm.jsp";
 	%>
 
 	<!-- ログインフォーム。ユーザーIDとパスワードの入力を行う -->
-	<form action= "/Yukyu/LoginServlet" method="post">
+	<form action= "/Yukyu//view/LoginServlet" method="post">
 		ID<input type="text" name="user_id"> 
 		PASSWORD<input type="text" name="password"> 
 		<input type="submit"value="ログイン">

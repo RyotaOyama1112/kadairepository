@@ -1,4 +1,4 @@
-package Sinsei;
+package Servlet;
 
 import java.io.IOException;
 
@@ -8,38 +8,41 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import insert.yukyuInsert;
+import DAO.SinkitourokuInsert;
+import DAO.UserInsert;
 
-@WebServlet("/SinseiServlet")
-public class SinseiServlet extends HttpServlet {
+@WebServlet("/yukyu")
+public class yukyuServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
 		String msg = "";
-		
-		HttpSession session = req.getSession();
-		
+
 		//btnを取得
 		req.setCharacterEncoding("utf-8");
 		String btn = req.getParameter("btn");
 
 		//DAOオブジェクトを生成
-		yukyuInsert ydao = new yukyuInsert();
+		SinkitourokuInsert ydao = new SinkitourokuInsert();
+		UserInsert ydao2 = new UserInsert();
+		
 		//ボタンによる処理
-		if (btn.equals("申請")) {
-			//リクエストスコープからログインユーザーのIDを取得する
-			String userId = (String) session.getAttribute("user_id");
-			String yoteibi = req.getParameter("yoteibi");
-			ydao.insertYukyu(userId, yoteibi);
-			msg = "申請日" + yoteibi + "を申請しました";
+		if (btn.equals("登録")) {
+			String id = req.getParameter("id");
+			String password = req.getParameter("password");
+			String name = req.getParameter("name");
+			String busyo = req.getParameter("busyo");
+			int kanriFlg = Integer.valueOf(req.getParameter("kanriFlg"));
+			ydao.insert(id, password, name, busyo, kanriFlg);
+			ydao2.insert(id, password,kanriFlg);
+			msg = "ID" + id + "のデータを追加しました";
 			req.setAttribute("msg", msg);
 		}
 
 		//JSPにフォワード
-		String page;
-		page = "loginJugyouin.jsp";
-		RequestDispatcher rd = req.getRequestDispatcher(page);
+		String nextPage;
+		nextPage = "/insertForm.jsp";
+		RequestDispatcher rd = req.getRequestDispatcher(nextPage);
 		rd.forward(req, res);
 	}
 

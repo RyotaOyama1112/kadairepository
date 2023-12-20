@@ -1,96 +1,92 @@
-package kanrisya;
+package DAO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import bean.KanrisyaBean;
 import bean.KanrisyaDTO;
 
 public class KanrisyaDAO {
-  private final String URL = "jdbc:mysql://localhost/yukyudb";
-  private final String USER = "root";
-  private final String PASS = "4649";
-  private Connection con = null;
+    private Connection con = null;
 
-  public void connect(){
-    try{
-      //①DBに接続
-      con = DriverManager.getConnection(URL, USER, PASS);
-    } catch(Exception e){
-      e.printStackTrace();
+    public void connect() {
+        try {
+            // DatabaseConnectorを使用してDBに接続
+            con = DatabaseConnector.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-  }
-  
-  public KanrisyaDTO selectYukyu(String yoteibi,String name,String busyo,int kanriFlg) {
-    Statement stmt = null;
-    ResultSet rs = null;
-    KanrisyaDTO kdto = new KanrisyaDTO();
-    String sql = "SELECT yoteibi,userID FROM 有給申請 where yoteibi='" + yoteibi + "'or name='" + name + "'or busyo='" + busyo + "'or status_name=" + kanriFlg;
-    try{
-      connect();
-      //②ステートメントを生成
-      stmt = con.createStatement();
-      //③SQLを実行
-      rs = stmt.executeQuery(sql);
-      //④検索結果の処理
-      while(rs.next()){
-    	KanrisyaBean kb = new KanrisyaBean();
-        kb.setYoteibi(rs.getDate("yoteibi"));
-        kdto.add(kb);
-      }
-    } catch(Exception e){
-      e.printStackTrace();
-    } finally {
-      try{
-        if(rs != null) rs.close();
-        if(stmt != null) stmt.close();
-      } catch(Exception e){
-        e.printStackTrace();
-      }
-    }
-    disconnect();
-    return kdto;
-  }
-  
-  //public int update(String userID,String int kanriFlg) {
-	   // String sql = "UPDATE 有給申請 SET status_name = " + kanriFlg + "where userID=" + userID + "," + "yoteibi=" + yoteibi; 
-	    //return executeSql(sql);
-	  //}
-	 
-	  
-	  public int executeSql(String sql) {
-	    Statement stmt = null;
-	    ResultSet rs = null;
-	    int result = 0;
-	    try{
-	      connect();
-	      //②ステートメントを生成
-	      stmt = con.createStatement();
-	      //③SQLを実行
-	      result = stmt.executeUpdate(sql);
-	    } catch(Exception e){
-	      e.printStackTrace();
-	    } finally {
-	      try{
-	        if(rs != null) rs.close();
-	        if(stmt != null) stmt.close();
-	      } catch(Exception e){
-	        e.printStackTrace();
-	      }
-	    }
-	    disconnect();
-	    return result;
-	  }
 
-  public void disconnect(){
-    try{
-      //⑤DBを切断
-      if(con != null) con.close();
-    } catch(Exception e){
-      e.printStackTrace();
+    public KanrisyaDTO selectYukyu(String yoteibi, String name, String busyo, int kanriFlg) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        KanrisyaDTO kdto = new KanrisyaDTO();
+        String sql = "SELECT yoteibi, userID FROM 有給申請 WHERE yoteibi=? OR name=? OR busyo=? OR status_name=?";
+        try {
+            connect();
+            // プリペアドステートメントを生成
+            pstmt = con.prepareStatement(sql);
+            // パラメータを設定
+            pstmt.setString(1, yoteibi);
+            pstmt.setString(2, name);
+            pstmt.setString(3, busyo);
+            pstmt.setInt(4, kanriFlg);
+            // SQLを実行
+            rs = pstmt.executeQuery();
+            // 検索結果の処理
+            while (rs.next()) {
+                KanrisyaBean kb = new KanrisyaBean();
+                kb.setYoteibi(rs.getDate("yoteibi"));
+                kdto.add(kb);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        disconnect();
+        return kdto;
     }
-  }
+
+    public int executeSql(String sql) {
+        Statement stmt = null;
+        ResultSet rs = null;
+        int result = 0;
+        try {
+            connect();
+            // ステートメントを生成
+            stmt = con.createStatement();
+            // SQLを実行
+            result = stmt.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        disconnect();
+        return result;
+    }
+
+    public void disconnect() {
+        try {
+            // DBを切断
+            if (con != null) con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
-
