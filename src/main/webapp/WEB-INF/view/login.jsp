@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%
-String url_name = "http://localhost:8080/Yukyu/insertForm.jsp";
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +22,12 @@ String url_name = "http://localhost:8080/Yukyu/insertForm.jsp";
 	%>
 
 	<!-- ログインフォーム。ユーザーIDとパスワードの入力を行う -->
-	<form action= "/Yukyu//view/LoginServlet" method="post">
+	<form action= "/Yukyu/LoginServlet" method="post">
 		ID<input type="text" name="user_id"> 
 		PASSWORD<input type="text" name="password"> 
 		<input type="submit"value="ログイン">
 	</form>
 
-	<a href=<%=url_name%>>新規登録</a>
+	<form action= "/Yukyu/InsertFormServlet">
+	 <input type="submit"value="新規登録">
 </html>

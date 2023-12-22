@@ -23,7 +23,7 @@ public class SyutokuYoteibiServlet extends HttpServlet {
     //検索結果をリクエストスコープに格納
     req.setAttribute("sdto", sdto);
     //JSPにフォワード
-    RequestDispatcher rd = req.getRequestDispatcher("/loginJugyouin.jsp");
+    RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/view/loginJugyouin.jsp");
     rd.forward(req, res);
   }
 

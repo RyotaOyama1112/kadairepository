@@ -34,11 +34,10 @@ public class LoginServlet extends HttpServlet {
         try {
             String sql = "SELECT userID,Busyo,KanriFlg FROM user情報 WHERE userID=? AND password=?";
             try (ResultSet res = DatabaseConnector.executeQuery(sql, userId, password)) {
-
                 int kanriFlg = 0; 
 
                 if (res.next()) {
-                    HttpSession session = request.getSession(true);
+                   HttpSession session = request.getSession(true);
                     session.setAttribute("user_id", res.getString("userID"));
                     session.setAttribute("user_busyo", res.getString("Busyo"));
                     session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
@@ -47,13 +46,13 @@ public class LoginServlet extends HttpServlet {
                     kanriFlg = lDAO.getFlg(userId); 
 
                     if (kanriFlg == 1) {
-                        path = "loginJugyouin.jsp";
+                        path = "WEB-INF/view/loginJugyouin.jsp";
                     } else if (kanriFlg == 3) {
-                        path = "loginKanrisya.jsp";
+                        path = "WEB-INF/view/loginKanrisya.jsp";
                     }
                 } else {
                     request.setAttribute("loginFailure", "ログインに失敗しました");
-                    path = "login.jsp";
+                    path = "WEB-INF/view/login.jsp";
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -65,8 +64,8 @@ public class LoginServlet extends HttpServlet {
     }
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doPost(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/login.jsp");
+        rd.forward(request, response);
     }
 }

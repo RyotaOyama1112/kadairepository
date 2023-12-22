@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.syousaiDAO;
 import bean.KanrisyaDTO;
 
 
@@ -27,16 +26,6 @@ public class syousaiServlet extends HttpServlet {
 			suuji = req.getParameter(bangou);
 			num[i] = suuji;
 		}
-		
-		//if(Arrays.asList(num).contains()) {
-		{
-		}
-		//DAOオブジェクトを生成
-		syousaiDAO sdao = new syousaiDAO();
-		//ボタンによる処理
-	
-		//KanrisyaDTO kdto = sdao.select();
-		//btn2 = Integer.valueOf(req.getParameter(btn));
 		
 		req.setAttribute("kdto", kdto);
 		//JSPにフォワード

@@ -38,7 +38,7 @@ public class SinseiServlet extends HttpServlet {
 
 		//JSPにフォワード
 		String page;
-		page = "loginJugyouin.jsp";
+		page = "WEB-INF/view/loginJugyouin.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(page);
 		rd.forward(req, res);
 	}

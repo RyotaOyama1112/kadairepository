@@ -18,15 +18,14 @@ public class DatabaseConnector {
     }
 
     public static ResultSet executeQuery(String sql, String... params) throws SQLException, ClassNotFoundException {
-        try (Connection con = getConnection();
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
+        Connection con = getConnection();
+        PreparedStatement pstmt = con.prepareStatement(sql);
 
-            for (int i = 0; i < params.length; i++) {
-                pstmt.setString(i + 1, params[i]);
-            }
-
-            return pstmt.executeQuery();
+        for (int i = 0; i < params.length; i++) {
+            pstmt.setString(i + 1, params[i]);
         }
+
+        return pstmt.executeQuery();
     }
 
 }

@@ -29,7 +29,7 @@ public class KanrisyaServlet extends HttpServlet {
 		String btn = req.getParameter("btn");
 
 		//DAOオブジェクトを生成
-		KanrisyaDAO kdao = new KanrisyaDAO(null);
+		KanrisyaDAO kdao = new KanrisyaDAO();
 		//ボタンによる処理
 		if (btn.equals("検索")) {
 			HttpSession session = req.getSession(true);
@@ -47,7 +47,7 @@ public class KanrisyaServlet extends HttpServlet {
 
 		//JSPにフォワード
 		String page;
-		page = "loginKanrisya.jsp";
+		page = "WEB-INF/view/loginKanrisya.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(page);
 		rd.forward(req, res);
 	}

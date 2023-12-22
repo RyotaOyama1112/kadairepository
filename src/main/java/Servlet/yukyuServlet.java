@@ -41,7 +41,7 @@ public class yukyuServlet extends HttpServlet {
 
 		//JSPにフォワード
 		String nextPage;
-		nextPage = "/insertForm.jsp";
+		nextPage = "WEB-INF/view/insertForm.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(nextPage);
 		rd.forward(req, res);
 	}
