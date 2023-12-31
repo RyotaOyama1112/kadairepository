@@ -22,7 +22,6 @@ public class KanrisyaServlet extends HttpServlet {
 		String name = null;
 		String busyo = null;
 		int kanriFlg = 0;
-		//int num = 0;
 
 		//btnを取得
 		req.setCharacterEncoding("utf-8");

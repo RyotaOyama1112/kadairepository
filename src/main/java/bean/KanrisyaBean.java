@@ -9,9 +9,13 @@ public class KanrisyaBean implements Serializable{
   private String name;
   private String busyo;
   private int status_name;
+  private Date sinseibi;
   
   public void setUserid(String userID){
 	    this.userID = userID;
+	  }
+  public void setSinseibi(Date sinseibi){
+	    this.sinseibi = sinseibi;
 	  }
   public void setYoteibi(Date yoteibi){
     this.yoteibi = yoteibi;
@@ -27,6 +31,9 @@ public class KanrisyaBean implements Serializable{
 	  }
   public String getUserid(){
 	    return userID;
+	  }
+  public Date getSinseibi(){
+	    return sinseibi;
 	  }
   public Date getYoteibi(){
     return yoteibi;

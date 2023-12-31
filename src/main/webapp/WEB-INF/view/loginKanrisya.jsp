@@ -40,6 +40,7 @@
   <tr>
   　<th width="50">no</th>
     <th width="50">有給日時</th>
+    <th width="50">UserID</th>
     <th width="50">詳細ボタン</th>
   </tr>
 <%
@@ -47,12 +48,15 @@ for(int i = 0; i < kdto.size(); i++){
     KanrisyaBean kb = kdto.get(i);
 %>
   <tr>
-  <td align="center"><%= i %></td>
+  <td align="center"><%= i +1%></td>
     <td align="center"><%= kb.getYoteibi() %></td>
+    <td align="center"><%= kb.getUserid() %></td>
     <td align="center">
-    <form action="Syousai" method="post">
-    <button type="submit" value="<%= i %>">詳細</button>
-    </form>
+<form action="/Yukyu/SyousaiServlet" method="post" >
+    <input type="hidden" name="userid" id="userid" value="<%= kb.getUserid() %>">
+    <button type="submit">詳細</button>
+</form>
+
     </td>
   </tr>
 <% } %>

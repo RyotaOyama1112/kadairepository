@@ -41,6 +41,7 @@ public class KanrisyaDAO {
             while (rs.next()) {
                 KanrisyaBean kb = new KanrisyaBean();
                 kb.setYoteibi(rs.getDate("yoteibi"));
+                kb.setUserid(rs.getString("userID"));
                 kdto.add(kb);
             }
         } catch (Exception e) {
