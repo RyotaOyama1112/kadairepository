@@ -2,9 +2,6 @@
 <%@page import="bean.*"%>
 <jsp:useBean id="ydto" scope="request" class="bean.yukyuDTO" />
 <jsp:useBean id="msg" scope="request" class="java.lang.String" />
-<%
-String url_name = "http://localhost:8080/Yukyu/login.jsp";
-%>
 
 <html>
 <head>
@@ -45,15 +42,13 @@ String url_name = "http://localhost:8080/Yukyu/login.jsp";
 					<td colspan=2 style="text-align: center"><input type="submit"
 						name="btn" value="登録"></td>
 				</tr>
-				<tr>
-					<td colspan=2 style="text-align: center"><a
-						href=<%=url_name%>>戻る</a></td>
-				</tr>
 			</table>
 		</form>
 		<br>
 	</div>
-
+<form action= "/Yukyu/LoginForm">
+	<input type="submit"value="戻る">
+</form>    
 </body>
 
-</html
+</html>

@@ -30,4 +30,5 @@
 
 	<form action= "/Yukyu/InsertFormServlet">
 	 <input type="submit"value="新規登録">
+　</form>
 </html>

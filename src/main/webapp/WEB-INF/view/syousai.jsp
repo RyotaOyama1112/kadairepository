@@ -22,7 +22,7 @@
     <div>部署: <%= busyo %></div>
     <div>ステータス: <%= status_name %></div>
 
-<form action="/Yukyu/SyousaiServlet" method="post">
+<form action="/Yukyu/HenkouServlet" method="post">
     <select name="status"> 
         <option value="0">選択してください</option>
         <option value="1">申請中</option>

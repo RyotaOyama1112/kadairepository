@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% String url_name = "http://localhost:8080/Yukyu/login.jsp"; %>
 <%@page import="bean.*" %>
 <jsp:useBean id ="sdto" scope="request" class="bean.SyutokuYoteibiDTO" />
 <!DOCTYPE html>
@@ -46,7 +45,10 @@
 <% } %>
     </form>
     </table>
-  <div><a href=<%=url_name%>>戻る</a></div>
-        
+
+<form action= "/Yukyu/LoginForm">
+	<input type="submit"value="戻る">
+</form>        
+
 </body>
 </html>

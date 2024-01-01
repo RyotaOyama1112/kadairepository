@@ -82,6 +82,29 @@ public class KanrisyaDAO {
         return result;
     }
 
+    public void updateStatus(String userId, String yoteibi, int newStatus) {
+        PreparedStatement pstmt = null;
+        String sql = "UPDATE 有給申請 SET status_name = ? WHERE userID = ? AND yoteibi = ?";
+        try {
+            connect();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, newStatus);
+            pstmt.setString(2, userId);
+            pstmt.setString(3, yoteibi);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        disconnect();
+    }
+
+    
     public void disconnect() {
         try {
             // DBを切断
