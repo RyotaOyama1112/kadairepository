@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/InsertFormServlet")
 
-public class InsertFormForwardServlet extends HttpServlet {
+public class IInsertFormForwardController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        //フォワード先の指定
-       RequestDispatcher dispatcher =  request.getRequestDispatcher("WEB-INF/view/insertForm.jsp");
+       RequestDispatcher dispatcher =  request.getRequestDispatcher("WEB-INF/view/InsertForm.jsp");
        //フォワードの実行
         dispatcher.forward(request, response);
  }

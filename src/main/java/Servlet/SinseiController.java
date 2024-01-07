@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import DAO.YukyuInsert;
 
 @WebServlet("/SinseiServlet")
-public class SinseiServlet extends HttpServlet {
+public class SinseiController extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
 		String msg = "";
@@ -38,7 +38,7 @@ public class SinseiServlet extends HttpServlet {
 
 		//JSPにフォワード
 		String page;
-		page = "WEB-INF/view/loginJugyouin.jsp";
+		page = "WEB-INF/view/LoginJugyouin.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(page);
 		rd.forward(req, res);
 	}

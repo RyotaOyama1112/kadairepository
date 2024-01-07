@@ -1,6 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page import="bean.*"%>
-<jsp:useBean id="ydto" scope="request" class="bean.yukyuDTO" />
+<jsp:useBean id="yd" scope="request" class="w" />
 <jsp:useBean id="msg" scope="request" class="java.lang.String" />
 
 <html>

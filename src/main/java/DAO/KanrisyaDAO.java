@@ -101,7 +101,6 @@ public class KanrisyaDAO {
                 e.printStackTrace();
             }
         }
-        disconnect();
     }
 
     

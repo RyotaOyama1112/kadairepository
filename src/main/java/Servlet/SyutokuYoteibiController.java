@@ -13,7 +13,7 @@ import DAO.SyutokuYoteibiDAO;
 import bean.SyutokuYoteibiDTO;
 
 @WebServlet("/SyutokuYoteibi")
-public class SyutokuYoteibiServlet extends HttpServlet {
+public class SyutokuYoteibiController extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse res)
       throws IOException, ServletException {
     //DAOオブジェクトを生成
@@ -23,7 +23,7 @@ public class SyutokuYoteibiServlet extends HttpServlet {
     //検索結果をリクエストスコープに格納
     req.setAttribute("sdto", sdto);
     //JSPにフォワード
-    RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/view/loginJugyouin.jsp");
+    RequestDispatcher rd = req.getRequestDispatcher("WEB-INF/view/LoginJugyouin.jsp");
     rd.forward(req, res);
   }
 

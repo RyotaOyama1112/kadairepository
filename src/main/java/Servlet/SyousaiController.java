@@ -2,7 +2,6 @@ package Servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,33 +14,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/SyousaiServlet")
-public class SyousaiServlet extends HttpServlet {
+import DAO.DatabaseConnector;
 
-    private static final String url = "jdbc:mysql://localhost/yukyudb";
-    private static final String user = "root";
-    private static final String password = "4649";
+@WebServlet("/SyousaiServlet")
+public class SyousaiController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // SousaiServletで取得したuserid
         String userId = request.getParameter("userid");
-        System.out.println("Received userid: " + userId);
 
         // データベースからユーザー情報を取得してセッションにセット
         getUserInfoAndSetSession(request, userId);
 
-        String forwardJSP = "WEB-INF/view/syousai.jsp";
+        String forwardJSP = "WEB-INF/view/Syousai.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(forwardJSP);
         dispatcher.forward(request, response);
     }
 
     private void getUserInfoAndSetSession(HttpServletRequest request, String userId) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection connection = DriverManager.getConnection(url, user, password);
-                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM 有給申請 WHERE userID = ?")) {
-                
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM 有給申請 WHERE userID = ?")) {
                 statement.setString(1, userId);
 
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -57,9 +50,11 @@ public class SyousaiServlet extends HttpServlet {
                     }
                 }
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace(); // 適切なエラーハンドリングに変更すること
-        }
+        } catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)

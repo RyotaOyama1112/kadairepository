@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/LoginForm")
 
-public class LoginFormForwardServlet extends HttpServlet {
+public class LoginFormForwardController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        //フォワード先の指定
-       RequestDispatcher dispatcher =  request.getRequestDispatcher("/WEB-INF/view/login.jsp");
+       RequestDispatcher dispatcher =  request.getRequestDispatcher("/WEB-INF/view/Login.jsp");
        //フォワードの実行
         dispatcher.forward(request, response);
  }
-    }
+    }S

@@ -16,10 +16,10 @@ import DAO.DatabaseConnector;
 import DAO.LoginCheck;
 
 @WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+public class LoginController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public LoginServlet() {
+    public LoginController() {
         super();
     }
 
@@ -46,13 +46,13 @@ public class LoginServlet extends HttpServlet {
                     kanriFlg = lDAO.getFlg(userId); 
 
                     if (kanriFlg == 1) {
-                        path = "WEB-INF/view/loginJugyouin.jsp";
+                        path = "WEB-INF/view/LoginJugyouin.jsp";
                     } else if (kanriFlg == 3) {
-                        path = "WEB-INF/view/loginKanrisya.jsp";
+                        path = "WEB-INF/view/LoginKanrisya.jsp";
                     }
                 } else {
                     request.setAttribute("loginFailure", "ログインに失敗しました");
-                    path = "WEB-INF/view/login.jsp";
+                    path = "WEB-INF/view/Login.jsp";
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/login.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/Login.jsp");
         rd.forward(request, response);
     }
 }

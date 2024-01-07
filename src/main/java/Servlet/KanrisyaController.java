@@ -14,7 +14,7 @@ import DAO.KanrisyaDAO;
 import bean.KanrisyaDTO;
 
 @WebServlet("/KanrisyaServlet")
-public class KanrisyaServlet extends HttpServlet {
+public class KanrisyaController extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
 		String msg = "";
@@ -46,7 +46,7 @@ public class KanrisyaServlet extends HttpServlet {
 
 		//JSPにフォワード
 		String page;
-		page = "WEB-INF/view/loginKanrisya.jsp";
+		page = "WEB-INF/view/LoginKanrisya.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(page);
 		rd.forward(req, res);
 	}

@@ -13,7 +13,7 @@ import DAO.SinkitourokuInsert;
 import DAO.UserInsert;
 
 @WebServlet("/yukyu")
-public class yukyuServlet extends HttpServlet {
+public class YukyuController extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
 		String msg = "";
@@ -41,7 +41,7 @@ public class yukyuServlet extends HttpServlet {
 
 		//JSPにフォワード
 		String nextPage;
-		nextPage = "WEB-INF/view/insertForm.jsp";
+		nextPage = "WEB-INF/view/InsertForm.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(nextPage);
 		rd.forward(req, res);
 	}

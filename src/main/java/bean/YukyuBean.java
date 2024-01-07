@@ -2,7 +2,7 @@ package bean;
 
 import java.io.Serializable;
 
-public class yukyuBean implements Serializable {
+public class YukyuBean implements Serializable {
 	private String id;
 	private String name;
 	private String password;	
