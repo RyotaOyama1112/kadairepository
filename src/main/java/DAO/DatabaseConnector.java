@@ -28,4 +28,8 @@ public class DatabaseConnector {
         return pstmt.executeQuery();
     }
 
+    public static ResultSet executeLoginQuery(String userId, String password) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT userID, Busyo, KanriFlg FROM user情報 WHERE userID=? AND password=?";
+        return executeQuery(sql, userId, password);
+    }
 }

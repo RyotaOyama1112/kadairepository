@@ -1,4 +1,4 @@
-package Servlet;
+package Controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -28,16 +28,14 @@ public class LoginController extends HttpServlet {
 
         String userId = request.getParameter("user_id");
         String password = request.getParameter("password");
-
         String path = "";
 
         try {
-            String sql = "SELECT userID,Busyo,KanriFlg FROM user情報 WHERE userID=? AND password=?";
-            try (ResultSet res = DatabaseConnector.executeQuery(sql, userId, password)) {
+            try (ResultSet res = DatabaseConnector.executeQuery(userId, password)) {
                 int kanriFlg = 0; 
 
                 if (res.next()) {
-                   HttpSession session = request.getSession(true);
+                    HttpSession session = request.getSession(true);
                     session.setAttribute("user_id", res.getString("userID"));
                     session.setAttribute("user_busyo", res.getString("Busyo"));
                     session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
@@ -63,9 +61,9 @@ public class LoginController extends HttpServlet {
         rd2.forward(request, response);
     }
 
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/view/Login.jsp");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/Login.jsp");
         rd.forward(request, response);
     }
 }

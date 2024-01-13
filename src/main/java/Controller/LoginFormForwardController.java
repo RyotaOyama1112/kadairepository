@@ -1,4 +1,4 @@
-package Servlet; 
+package Controller; 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -18,4 +18,4 @@ public class LoginFormForwardController extends HttpServlet {
        //フォワードの実行
         dispatcher.forward(request, response);
  }
-    }S
+    }

@@ -1,4 +1,4 @@
-package Servlet;
+package Controller;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.KanrisyaDAO;
+import DAO.YukyuSinseiDAO;
 import bean.KanrisyaDTO;
 
 @WebServlet("/KanrisyaServlet")
@@ -28,7 +28,7 @@ public class KanrisyaController extends HttpServlet {
 		String btn = req.getParameter("btn");
 
 		//DAOオブジェクトを生成
-		KanrisyaDAO kdao = new KanrisyaDAO();
+		YukyuSinseiDAO kdao = new YukyuSinseiDAO();
 		//ボタンによる処理
 		if (btn.equals("検索")) {
 			HttpSession session = req.getSession(true);

@@ -1,4 +1,4 @@
-package Servlet;
+package Controller;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.KanrisyaDAO;
+import DAO.YukyuSinseiDAO;
 
 @WebServlet("/HenkouServlet")
 public class HenkouController extends HttpServlet {
@@ -19,11 +19,11 @@ public class HenkouController extends HttpServlet {
         String yoteibi = request.getParameter("yoteibi");
         int newStatus = Integer.parseInt(request.getParameter("status"));
 
-        // KanrisyaDAOのインスタンスを作成
-        KanrisyaDAO kanrisyaDAO = new KanrisyaDAO();
+        // YukyuSinseiDAOのインスタンスを作成
+        YukyuSinseiDAO YukyuSinseiDAO = new YukyuSinseiDAO();
 
         // updateStatusメソッドを呼び出してステータスを更新
-        kanrisyaDAO.updateStatus(userId, yoteibi, newStatus);
+        YukyuSinseiDAO.updateStatus(userId, yoteibi, newStatus);
 
         String forwardJSP = "/WEB-INF/view/Syousai.jsp";
         System.out.println(forwardJSP);
