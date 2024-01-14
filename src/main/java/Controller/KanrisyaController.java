@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.YukyuSinseiDAO;
-import bean.KanrisyaDTO;
+import DTO.KanrisyaDTO;
 
 @WebServlet("/KanrisyaServlet")
 public class KanrisyaController extends HttpServlet {

@@ -1,7 +1,9 @@
-package bean;
+package DTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import bean.SyutokuYoteibiBean;
 
 public class SyutokuYoteibiDTO implements Serializable{
   private ArrayList<SyutokuYoteibiBean> list;

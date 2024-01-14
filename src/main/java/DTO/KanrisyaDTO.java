@@ -1,7 +1,9 @@
-package bean;
+package DTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import bean.KanrisyaBean;
 
 public class KanrisyaDTO implements Serializable{
   private ArrayList<KanrisyaBean> list;

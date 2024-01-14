@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.DatabaseConnector;
-import DAO.LoginCheck;
 
 @WebServlet("/LoginServlet")
 public class LoginController extends HttpServlet {
@@ -28,6 +27,15 @@ public class LoginController extends HttpServlet {
 
         String userId = request.getParameter("user_id");
         String password = request.getParameter("password");
+        
+        if (userId == null || userId.isEmpty() || password == null || password.isEmpty()) {
+            // ユーザーIDまたはパスワードが未入力の場合
+            request.setAttribute("loginFailure", "ユーザーIDとパスワードを入力してください");
+            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/Login.jsp");
+            rd.forward(request, response);
+            return;
+        }
+
         String path = "";
 
         try {
@@ -40,7 +48,7 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user_busyo", res.getString("Busyo"));
                     session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
 
-                    LoginCheck lDAO = new LoginCheck();
+                    DatabaseConnector lDAO = new DatabaseConnector();
                     kanriFlg = lDAO.getFlg(userId); 
 
                     if (kanriFlg == 1) {

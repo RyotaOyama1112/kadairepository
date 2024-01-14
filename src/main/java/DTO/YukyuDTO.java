@@ -1,7 +1,9 @@
-package bean;
+package DTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import bean.YukyuBean;
 
 public class YukyuDTO implements Serializable {
 	private ArrayList<YukyuBean> list;

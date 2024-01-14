@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.SinkitourokuInsert;
-import DAO.UserInsert;
+import DAO.UserDAO;
+import DAO.YukyuSinseiDAO;
 
 @WebServlet("/yukyu")
 public class YukyuController extends HttpServlet {
@@ -23,8 +23,8 @@ public class YukyuController extends HttpServlet {
 		String btn = req.getParameter("btn");
 
 		//DAOオブジェクトを生成
-		SinkitourokuInsert ydao = new SinkitourokuInsert();
-		UserInsert ydao2 = new UserInsert();
+		YukyuSinseiDAO ydao = new YukyuSinseiDAO();
+		UserDAO ydao2 = new UserDAO();
 		
 		//ボタンによる処理
 		if (btn.equals("登録")) {

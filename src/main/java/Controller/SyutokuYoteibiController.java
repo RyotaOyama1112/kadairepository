@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.SyutokuYoteibiDAO;
-import bean.SyutokuYoteibiDTO;
+import DAO.YukyuSinseiDAO;
+import DTO.SyutokuYoteibiDTO;
 
 @WebServlet("/SyutokuYoteibi")
 public class SyutokuYoteibiController extends HttpServlet {
   public void doPost(HttpServletRequest req, HttpServletResponse res)
       throws IOException, ServletException {
     //DAOオブジェクトを生成
-    SyutokuYoteibiDAO sdao = new SyutokuYoteibiDAO();
+	  YukyuSinseiDAO sdao = new YukyuSinseiDAO();
     //全件検索した結果をDTOオブジェクトとして取得
     SyutokuYoteibiDTO sdto = sdao.select();
     //検索結果をリクエストスコープに格納

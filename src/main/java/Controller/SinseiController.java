@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.YukyuInsert;
+import DAO.YukyuSinseiDAO;
 
 @WebServlet("/SinseiServlet")
 public class SinseiController extends HttpServlet {
@@ -25,7 +25,7 @@ public class SinseiController extends HttpServlet {
 		String btn = req.getParameter("btn");
 
 		//DAOオブジェクトを生成
-		YukyuInsert ydao = new YukyuInsert();
+		YukyuSinseiDAO ydao = new YukyuSinseiDAO();
 		//ボタンによる処理
 		if (btn.equals("申請")) {
 			//リクエストスコープからログインユーザーのIDを取得する

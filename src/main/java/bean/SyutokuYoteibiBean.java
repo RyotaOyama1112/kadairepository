@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class SyutokuYoteibiBean implements Serializable{
   private String user;
+  
   private Date yoteibi ;
   
   public void setUser(String user){

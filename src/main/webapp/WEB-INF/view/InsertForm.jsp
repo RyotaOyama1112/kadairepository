@@ -1,6 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page import="bean.*"%>
-<jsp:useBean id="yd" scope="request" class="w" />
 <jsp:useBean id="msg" scope="request" class="java.lang.String" />
 
 <html>
@@ -10,7 +9,6 @@
 <body>
 	<div style="text-align: center">
 		<h2 style="text-align: center">新規登録画面</h2>
-		<hr style="height: 3; background-color: #0000ff" />
 		<h3><%=msg%></h3>
 		<br> 登録する情報を入力してください。
 		<form action="/Yukyu/yukyu" method="post">
@@ -46,7 +44,7 @@
 		</form>
 		<br>
 	</div>
-<form action= "/Yukyu/LoginForm">
+<form action= "/Yukyu/LoginForm" colspan=2 style="text-align: center">
 	<input type="submit"value="戻る">
 </form>    
 </body>
