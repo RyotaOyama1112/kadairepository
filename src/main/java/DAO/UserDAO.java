@@ -7,6 +7,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     // 新規登録情報をuserテーブルに追加するsql
+	//トランザクション実装
     public int insert(String id, String password, int kanriFlg) {
         String sql = "INSERT INTO user(userID, password, KanriFlg) VALUES (?, ?, ?)";
         int result = 0;
@@ -16,8 +17,6 @@ public class UserDAO {
         try {
             // データベースへの接続
             con = DatabaseConnector.getConnection();
-            // トランザクションの開始
-            con.setAutoCommit(false);
 
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, id);
@@ -25,28 +24,15 @@ public class UserDAO {
             pstmt.setInt(3, kanriFlg);
 
             result = pstmt.executeUpdate();
-
-            // トランザクションのコミット
-            con.commit();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            try {
-                // トランザクションのロールバック
-                if (con != null) {
-                    con.rollback();
-                }
-            } catch (SQLException rollbackException) {
-                rollbackException.printStackTrace();
-            }
         } finally {
             try {
-                // トランザクションの終了
-                if (con != null) {
-                    con.setAutoCommit(true);
-                    con.close();
-                }
                 if (pstmt != null) {
                     pstmt.close();
+                }
+                if (con != null) {
+                    con.close();
                 }
             } catch (SQLException closeException) {
                 closeException.printStackTrace();

@@ -8,7 +8,9 @@
     <title>詳細ページ</title>
 </head>
 <body>
-
+    <div id="messageDiv"></div>
+    
+    
     <%
     // セッションから情報を取得
     String userid = (String)session.getAttribute("userid");
@@ -21,6 +23,22 @@
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String formattedYoteibi = (yoteibi != null) ? dateFormat.format(yoteibi) : "";
     %>
+
+    <%
+// セッションからメッセージを取得
+String message = (String)session.getAttribute("message");
+// メッセージが存在する場合に表示
+if (message != null && !message.isEmpty()) {
+%>
+<div id="messageDiv" style="color: red;">
+    <%= message %>
+</div>
+<%
+    // メッセージを表示したら、セッションから削除
+    session.removeAttribute("message");
+}
+%>
+    
 
     <div>ユーザーID: <%= userid %></div>
     <div>氏名: <%= name %></div>
@@ -40,6 +58,9 @@
         <input type="submit" name="btn" value="変更">
     </form>
 
+<form action= "/Yukyu/LoginKanrisyaForwardController">
+	<input type="submit"value="戻る">
+</form> 
 
 </body>
 </html>

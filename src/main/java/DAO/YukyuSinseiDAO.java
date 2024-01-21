@@ -15,7 +15,7 @@ import bean.KanrisyaBean;
 import bean.SyutokuYoteibiBean;
 
 public class YukyuSinseiDAO {
-	private Connection con = null;
+    private Connection con = null;
 
     public void connect() {
         try {
@@ -25,6 +25,7 @@ public class YukyuSinseiDAO {
             e.printStackTrace();
         }
     }
+
     //ここから旧KanrisyaDAO
     public KanrisyaDTO selectYukyu(String yoteibi, String name, String busyo, int kanriFlg) {
         PreparedStatement pstmt = null;
@@ -62,7 +63,7 @@ public class YukyuSinseiDAO {
         disconnect();
         return kdto;
     }
-    
+
     public int executeSql(String sql) {
         Statement stmt = null;
         ResultSet rs = null;
@@ -89,9 +90,10 @@ public class YukyuSinseiDAO {
 
     public void updateStatus(String userId, String yoteibi, int newStatus) {
         PreparedStatement pstmt = null;
-        String sql = "UPDATE 有給申請 SET status_name = ? WHERE userID = ? AND yoteibi = ";
+        String sql = "UPDATE 有給申請 SET status_name = ? WHERE userID = ? AND yoteibi = ?";
 
-        try (Connection con = DatabaseConnector.getConnection()) {
+        try {
+            connect();
             con.setAutoCommit(false); // トランザクションの開始
 
             pstmt = con.prepareStatement(sql);
@@ -101,7 +103,7 @@ public class YukyuSinseiDAO {
             pstmt.executeUpdate();
 
             con.commit(); // トランザクションのコミット
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             try {
                 if (con != null) {
@@ -119,6 +121,7 @@ public class YukyuSinseiDAO {
                 closeException.printStackTrace();
             }
         }
+        disconnect();
     }
 
     public void disconnect() {
@@ -129,6 +132,7 @@ public class YukyuSinseiDAO {
             e.printStackTrace();
         }
     }
+
     //ここまで旧KanrisyaDAO
 
     public static void getUserInfo(Connection connection, HttpServletRequest request, String userId) {
@@ -151,8 +155,9 @@ public class YukyuSinseiDAO {
             e.printStackTrace();
         }
     }
-//新規登録情報をuser情報テーブルに追加するsql
-//旧SinkitourokuInsert
+
+    //新規登録情報をuser情報テーブルに追加するsql
+    //旧SinkitourokuInsert
     public int insert(String id, String password, String name, String busyo, int kanriFlg) {
         String sql = "INSERT INTO user情報(userID, password, Name, Busyo, KanriFlg) VALUES (?, ?, ?, ?, ?)";
         int result = 0;
@@ -198,7 +203,7 @@ public class YukyuSinseiDAO {
 
         return result;
     }
-    
+
     // 従業員画面から申請日を追加するsql
     //旧YukyuInsert
     public int insertYukyu(String userId, String yoteibi) {
@@ -245,7 +250,6 @@ public class YukyuSinseiDAO {
         return result;
     }
 
-    
     public SyutokuYoteibiDTO select() {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -277,4 +281,3 @@ public class YukyuSinseiDAO {
         return sdto;
     }
 }
-

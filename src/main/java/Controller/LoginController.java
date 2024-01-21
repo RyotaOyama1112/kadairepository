@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.DatabaseConnector;
+import DAO.UserJohoDAO;
 
 @WebServlet("/LoginServlet")
 public class LoginController extends HttpServlet {
@@ -39,7 +39,7 @@ public class LoginController extends HttpServlet {
         String path = "";
 
         try {
-            try (ResultSet res = DatabaseConnector.executeQuery(userId, password)) {
+            try (ResultSet res = UserJohoDAO.executeLoginQuery(userId, password)) {
                 int kanriFlg = 0; 
 
                 if (res.next()) {
@@ -48,13 +48,13 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user_busyo", res.getString("Busyo"));
                     session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
 
-                    DatabaseConnector lDAO = new DatabaseConnector();
+                    UserJohoDAO lDAO = new UserJohoDAO();
                     kanriFlg = lDAO.getFlg(userId); 
 
                     if (kanriFlg == 1) {
-                        path = "WEB-INF/view/LoginJugyouin.jsp";
+                        path = "WEB-INF/view/loginJugyouin.jsp";
                     } else if (kanriFlg == 3) {
-                        path = "WEB-INF/view/LoginKanrisya.jsp";
+                        path = "WEB-INF/view/loginKanrisya.jsp";
                     }
                 } else {
                     request.setAttribute("loginFailure", "ログインに失敗しました");

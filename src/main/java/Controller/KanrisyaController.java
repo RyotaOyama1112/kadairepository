@@ -46,7 +46,7 @@ public class KanrisyaController extends HttpServlet {
 
 		//JSPにフォワード
 		String page;
-		page = "WEB-INF/view/LoginKanrisya.jsp";
+		page = "WEB-INF/view/loginKanrisya.jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(page);
 		rd.forward(req, res);
 	}

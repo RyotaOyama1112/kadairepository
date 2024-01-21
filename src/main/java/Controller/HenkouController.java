@@ -25,6 +25,8 @@ public class HenkouController extends HttpServlet {
         // updateStatusメソッドを呼び出してステータスを更新
         YukyuSinseiDAO.updateStatus(userId, yoteibi, newStatus);
 
+        request.getSession().setAttribute("message", "変更が完了しました。");
+        
         String forwardJSP = "/WEB-INF/view/Syousai.jsp";
         System.out.println(forwardJSP);
         RequestDispatcher dispatcher = request.getRequestDispatcher(forwardJSP);
