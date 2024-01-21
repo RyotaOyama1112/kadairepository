@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     // 新規登録情報をuserテーブルに追加するsql
-	//トランザクション実装
+	//トランザクション実装済
     public int insert(String id, String password, int kanriFlg) {
         String sql = "INSERT INTO user(userID, password, KanriFlg) VALUES (?, ?, ?)";
         int result = 0;

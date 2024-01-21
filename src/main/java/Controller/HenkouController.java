@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.YukyuSinseiDAO;
+import service.Transaction;
 
 @WebServlet("/HenkouServlet")
 public class HenkouController extends HttpServlet {
@@ -22,8 +23,11 @@ public class HenkouController extends HttpServlet {
         // YukyuSinseiDAOのインスタンスを作成
         YukyuSinseiDAO YukyuSinseiDAO = new YukyuSinseiDAO();
 
-        // updateStatusメソッドを呼び出してステータスを更新
-        YukyuSinseiDAO.updateStatus(userId, yoteibi, newStatus);
+     // トランザクションを実行
+        Transaction.performTransaction(con -> {
+            // updateStatusメソッドを呼び出してステータスを更新
+            YukyuSinseiDAO.updateStatus(userId, yoteibi, newStatus);
+            });
 
         request.getSession().setAttribute("message", "変更が完了しました。");
         

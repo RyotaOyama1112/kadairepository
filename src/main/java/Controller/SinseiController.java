@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.YukyuSinseiDAO;
+import service.Transaction;
 
 @WebServlet("/SinseiServlet")
 public class SinseiController extends HttpServlet {
@@ -31,7 +32,10 @@ public class SinseiController extends HttpServlet {
 			//リクエストスコープからログインユーザーのIDを取得する
 			String userId = (String) session.getAttribute("user_id");
 			String yoteibi = req.getParameter("yoteibi");
-			ydao.insertYukyu(userId, yoteibi);
+            // トランザクション内での処理
+            Transaction.performTransaction(con -> {
+                ydao.insertYukyu(userId, yoteibi);
+            });
 			msg = "申請日" + yoteibi + "を申請しました";
 			req.setAttribute("msg", msg);
 		}

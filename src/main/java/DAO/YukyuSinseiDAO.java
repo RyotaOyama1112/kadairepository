@@ -88,6 +88,7 @@ public class YukyuSinseiDAO {
         return result;
     }
 
+  //トランザクション実装済
     public void updateStatus(String userId, String yoteibi, int newStatus) {
         PreparedStatement pstmt = null;
         String sql = "UPDATE 有給申請 SET status_name = ? WHERE userID = ? AND yoteibi = ?";
@@ -158,6 +159,7 @@ public class YukyuSinseiDAO {
 
     //新規登録情報をuser情報テーブルに追加するsql
     //旧SinkitourokuInsert
+  //トランザクション実装済
     public int insert(String id, String password, String name, String busyo, int kanriFlg) {
         String sql = "INSERT INTO user情報(userID, password, Name, Busyo, KanriFlg) VALUES (?, ?, ?, ?, ?)";
         int result = 0;
