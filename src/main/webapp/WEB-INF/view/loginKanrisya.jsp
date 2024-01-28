@@ -4,65 +4,88 @@
 <jsp:useBean id ="msg" scope="request" class="java.lang.String" />
 <!DOCTYPE html>
 
-
 <html>
 <head>
-<meta charset="UTF-8">
-<title>管理者用画面</title>
+    <meta charset="UTF-8">
+    <title>管理者用画面</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-  <!-- リクエストスコープからログインユーザーのIDを取得する -->
-  <%String userId = (String)session.getAttribute("user_id"); %>
-  <%String userBusyo = (String)session.getAttribute("user_busyo"); %>
+    <div class="container mt-5">
+        <!-- リクエストスコープからログインユーザーのIDを取得する -->
+        <% String userId = (String)session.getAttribute("user_id"); %>
+        <% String userBusyo = (String)session.getAttribute("user_busyo"); %>
 
-  <!-- メッセージを表示する -->
-  <div>管理者用画面ログイン中</div>
-  <%
-  
-  %>
-  <h2>
-    こんにちは！所属部署が<%=userBusyo %>の<%=userId %>さん!
-  </h2>
-  
-    <form action="KanrisyaServlet" method="post">
-    取得予定日<input type="text" name="yoteibi"> 
-    氏名<input type="text" name="name"> 
-    部署<input type="text" name="busyo"> 
-    ステータス<select name="status"> 
-              <option value="0">選択してください</option>
-              <option value="1">申請中</option>
-              <option value="3">承認済</option>
-    <input type="submit" value="検索" name="btn">
-  </form> 
-  <h2><%= msg %></h2>
-<table border="1">
-  <tr>
-  　<th width="50">no</th>
-    <th width="50">有給日時</th>
-    <th width="50">UserID</th>
-    <th width="50">詳細ボタン</th>
-  </tr>
-<%
-for(int i = 0; i < kdto.size(); i++){
-    KanrisyaBean kb = kdto.get(i);
-%>
-  <tr>
-  <td align="center"><%= i +1%></td>
-    <td align="center"><%= kb.getYoteibi() %></td>
-    <td align="center"><%= kb.getUserid() %></td>
-    <td align="center">
-<form action="/Yukyu/SyousaiServlet" method="post" >
-    <input type="hidden" name="userid" id="userid" value="<%= kb.getUserid() %>">
-    <button type="submit">詳細</button>
-</form>
+        <!-- メッセージを表示する -->
+        <div class="alert alert-info">管理者用画面ログイン中</div>
 
-    </td>
-  </tr>
-<% } %>
-</table><br />
-  
-<form action= "/Yukyu/LoginForm">
-	<input type="submit"value="戻る">
-</form>    
+        <h2>
+            こんにちは！所属部署が<%=userBusyo %>の<%=userId %>さん!
+        </h2>
+
+        <form action="KanrisyaServlet" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="yoteibi">取得予定日</label>
+                    <input type="text" class="form-control" name="yoteibi">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="name">氏名</label>
+                    <input type="text" class="form-control" name="name">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="busyo">部署</label>
+                    <input type="text" class="form-control" name="busyo">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="status">ステータス</label>
+                    <select class="form-control" name="status">
+                        <option value="0">選択してください</option>
+                        <option value="1">申請中</option>
+                        <option value="3">承認済</option>
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="検索" name="btn" class="btn btn-primary d-flex justify-content-center mx-auto">
+        </form>
+
+        <h2 class="mt-4"><%= msg %></h2>
+
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">有給日時</th>
+                    <th scope="col">UserID</th>
+                    <th scope="col">詳細ボタン</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(int i = 0; i < kdto.size(); i++){
+                    KanrisyaBean kb = kdto.get(i);
+                %>
+                <tr>
+                    <td align="center"><%= i + 1 %></td>
+                    <td align="center"><%= kb.getYoteibi() %></td>
+                    <td align="center"><%= kb.getUserid() %></td>
+                    <td align="center">
+                        <form action="/Yukyu/SyousaiServlet" method="post" >
+                            <input type="hidden" name="userid" id="userid" value="<%= kb.getUserid() %>">
+                            <button type="submit" class="btn btn-info">詳細</button>
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+        <form action= "/Yukyu/LoginForm" class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary">戻る</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

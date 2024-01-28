@@ -30,19 +30,22 @@ public class KanrisyaController extends HttpServlet {
 		//DAOオブジェクトを生成
 		YukyuSinseiDAO kdao = new YukyuSinseiDAO();
 		//ボタンによる処理
-		if (btn.equals("検索")) {
-			HttpSession session = req.getSession(true);
-			//リクエストスコープからログインユーザーのIDを取得する
-			 yoteibi = req.getParameter("yoteibi");
-			 name = req.getParameter("name");
-			 busyo = req.getParameter("busyo");
-			 kanriFlg = Integer.valueOf(req.getParameter("status"));
-			KanrisyaDTO kdto = kdao.selectYukyu(yoteibi,name,busyo,kanriFlg);
-			msg = "検索しました";
-			session.setAttribute("KSkdto", kdto);
-			req.setAttribute("kdto", kdto);
-			req.setAttribute("msg", msg);
-		} 
+		if (btn != null && btn.equals("検索")) {
+		    HttpSession session = req.getSession(true);
+		    // リクエストスコープからログインユーザーのIDを取得する
+		    yoteibi = req.getParameter("yoteibi");
+		    name = req.getParameter("name");
+		    busyo = req.getParameter("busyo");
+		    kanriFlg = Integer.valueOf(req.getParameter("status"));
+		    KanrisyaDTO kdto = kdao.selectYukyu(yoteibi, name, busyo, kanriFlg);
+		    msg = "検索しました";
+		    session.setAttribute("KSkdto", kdto);
+		    req.setAttribute("kdto", kdto);
+		    req.setAttribute("msg", msg);
+		} else {
+		    msg = "検索ボタンが押されていません";
+		    req.setAttribute("msg", msg);
+		}
 
 		//JSPにフォワード
 		String page;

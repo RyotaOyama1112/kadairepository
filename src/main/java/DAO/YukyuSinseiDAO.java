@@ -256,7 +256,7 @@ public class YukyuSinseiDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         SyutokuYoteibiDTO sdto = new SyutokuYoteibiDTO();
-        String sql = "SELECT yoteibi FROM 有給申請";
+        String sql = "SELECT * FROM 有給申請";
         try {
             connect();
             // プリペアドステートメントを生成
