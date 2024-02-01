@@ -54,15 +54,16 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-sm-10 offset-sm-1 text-center">
+                <div class="col-sm-10 offset-sm-2 text-right">
                     <input type="submit" name="btn" value="登録" class="btn btn-primary">
                 </div>
-             </div>
-             
+            </div>
         </form>
         
-        <form action="/Yukyu/LoginForm" method="get" class="text-center">
-            <button type="submit" class="btn btn-secondary">戻る</button>
+        <form action="/Yukyu/LoginForm" method="get">
+            <div class="text-right">
+                <button type="submit" class="btn btn-secondary">戻る</button>
+            </div>
         </form>
     </div>
 

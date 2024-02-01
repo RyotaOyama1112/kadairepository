@@ -9,13 +9,11 @@
     <title>ログイン画面</title>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container mt-5 position-relative">
         <div class="text-danger">
+            <!-- バリデーションエラーメッセージの表示 -->
             <%
-                // リクエストスコープからバリデーションエラーメッセージを受け取る
                 String validationError = (String) request.getAttribute("validationError");
-
-                // バリデーションエラーメッセージが存在するときだけ表示する
                 if (validationError != null) {
             %>
             <%= validationError %>
@@ -25,19 +23,13 @@
         </div>
 
         <div class="text-danger">
-            <!-- リクエストスコープからエラーメッセージを受け取る -->
+            <!-- ログインエラーメッセージの表示 -->
             <%
                 String failureMessage = (String) request.getAttribute("loginFailure");
             %>
-
-            <!-- エラーメッセージが存在するときだけ表示する -->
-            <%
-                if (failureMessage != null) {
-            %>
+            <% if (failureMessage != null) { %>
             <%= failureMessage %>
-            <%
-                }
-            %>
+            <% } %>
         </div>
 
         <!-- ログインフォーム。ユーザーIDとパスワードの入力を行う -->
@@ -50,13 +42,18 @@
                 <label for="password">PASSWORD</label>
                 <input type="password" name="password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary d-flex justify-content-center mx-auto">ログイン</button>
+            
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">ログイン</button>
+            </div>
         </form>
 
         <!-- 新規登録ボタンのフォーム -->
-        <form action="/Yukyu/InsertFormServlet" class="mt-3">
-            <button type="submit" class="btn btn-success d-flex justify-content-center mx-auto">新規登録</button>
-        </form>
+        <div class="text-right">
+            <form action="/Yukyu/InsertFormServlet" class="mt-3 ">
+                <button type="submit" class="btn btn-success">新規登録</button>
+            </form>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

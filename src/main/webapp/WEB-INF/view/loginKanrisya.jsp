@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="bean.*" %>
+<%@ page import="bean.*" %>
 <jsp:useBean id ="kdto" scope="request" class="DTO.KanrisyaDTO" />
 <jsp:useBean id ="msg" scope="request" class="java.lang.String" />
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
             こんにちは！所属部署が<%=userBusyo %>の<%=userId %>さん!
         </h2>
 
-        <form action="KanrisyaServlet" method="post">
+        <form id="searchForm" action="KanrisyaServlet" method="post">
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="yoteibi">取得予定日</label>
@@ -40,13 +40,15 @@
                 <div class="form-group col-md-3">
                     <label for="status">ステータス</label>
                     <select class="form-control" name="status">
-                        <option value="0">選択してください</option>
                         <option value="1">申請中</option>
                         <option value="3">承認済</option>
                     </select>
                 </div>
             </div>
-            <input type="submit" value="検索" name="btn" class="btn btn-primary d-flex justify-content-center mx-auto">
+            <div class="text-right">
+                <input type="hidden" name="btn" value="検索">
+                <input type="submit" value="検索" class="btn btn-primary ml-auto">
+            </div>
         </form>
 
         <h2 class="mt-4"><%= msg %></h2>
@@ -79,13 +81,21 @@
             </tbody>
         </table>
 
-        <form action= "/Yukyu/LoginForm" class="d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary">戻る</button>
+        <form action= "/Yukyu/LoginForm">
+            <div class="text-right">
+                <button type="submit" class="btn btn-secondary">戻る</button>
+            </div>
         </form>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        // ページ読み込み時にフォームを自動サブミット
+        window.onload = function() {
+            document.getElementById('searchForm').submit();
+        }
+    </script>
 </body>
 </html>
