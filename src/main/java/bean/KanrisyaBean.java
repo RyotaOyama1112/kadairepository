@@ -4,17 +4,18 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+
+import annotations.NameValidation;
 
 public class KanrisyaBean implements Serializable{
   private String userID;
   
   private Date yoteibi;
   
-  @Size(min = 1, max = 30, message = "名前は1文字以上30文字以下である必要があります")
+  @NameValidation(message = "名前は1文字以上30文字以下である必要があります")
   private String name;
   
-  @Size(max = 30, message = "部署は30文字以下である必要があります")
+  @NameValidation(message = "部署は30文字以下である必要があります")
   private String busyo;
   
   @PositiveOrZero

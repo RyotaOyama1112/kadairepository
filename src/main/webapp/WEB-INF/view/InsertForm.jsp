@@ -8,10 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>新規登録</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        /* 新規登録画面のタイトルを中央に配置するスタイル */
+        .title {
+            text-align: center;
+            margin-bottom: 30px; /* タイトルとフォームの間に余白を設ける */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="text-center mb-4">新規登録画面</h2>
+        <div class="row">
+            <div class="col-12 text-right mb-3">
+                <form action="/Yukyu/LoginForm" method="get">
+                    <button type="submit" class="btn btn-secondary">戻る</button>
+                </form>
+            </div>
+        </div>
+
+        <h2 class="title">新規登録画面</h2> <!-- タイトルを中央に配置 -->
 
         <form action="/Yukyu/yukyu" method="post">
             <div class="form-group row">
@@ -57,12 +72,6 @@
                 <div class="col-sm-10 offset-sm-2 text-right">
                     <input type="submit" name="btn" value="登録" class="btn btn-primary">
                 </div>
-            </div>
-        </form>
-        
-        <form action="/Yukyu/LoginForm" method="get">
-            <div class="text-right">
-                <button type="submit" class="btn btn-secondary">戻る</button>
             </div>
         </form>
     </div>

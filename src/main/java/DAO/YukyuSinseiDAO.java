@@ -27,7 +27,7 @@ public class YukyuSinseiDAO {
     }
 
     //ここから旧KanrisyaDAO
-    public KanrisyaDTO selectYukyu(String yoteibi, String name, String busyo, int kanriFlg) {
+    public KanrisyaDTO select(String yoteibi, String name, String busyo, int kanriFlg) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         KanrisyaDTO kdto = new KanrisyaDTO();
@@ -208,7 +208,7 @@ public class YukyuSinseiDAO {
 
     // 従業員画面から申請日を追加するsql
     //旧YukyuInsert
-    public int insertYukyu(String userId, String yoteibi) {
+    public int insert(String userId, String yoteibi) {
         String sql = "INSERT INTO 有給申請(userID, yoteibi, status_name) VALUES (?, ?, ?)";
         int result = 0;
         Connection con = null;
@@ -281,5 +281,36 @@ public class YukyuSinseiDAO {
         }
         disconnect();
         return sdto;
+    }
+    public KanrisyaDTO select2() {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        KanrisyaDTO kdto = new KanrisyaDTO();
+        String sql = "SELECT * FROM 有給申請";
+        try {
+            connect();
+            // プリペアドステートメントを生成
+            pstmt = con.prepareStatement(sql);
+            // SQLを実行
+            rs = pstmt.executeQuery();
+            // 検索結果の処理
+            while (rs.next()) {
+                KanrisyaBean kb = new KanrisyaBean();
+                kb.setYoteibi(rs.getDate("yoteibi"));
+                kb.setUserid(rs.getString("userID"));
+                kdto.add(kb);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        disconnect();
+        return kdto;
     }
 }

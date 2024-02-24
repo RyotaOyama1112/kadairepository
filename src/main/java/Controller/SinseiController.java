@@ -34,7 +34,7 @@ public class SinseiController extends HttpServlet {
 			String yoteibi = req.getParameter("yoteibi");
             // トランザクション内での処理
             Transaction.performTransaction(con -> {
-                ydao.insertYukyu(userId, yoteibi);
+                ydao.insert(userId, yoteibi);
             });
 			msg = "申請日" + yoteibi + "を申請しました";
 			req.setAttribute("msg", msg);

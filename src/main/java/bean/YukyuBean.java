@@ -3,21 +3,22 @@ package bean;
 import java.io.Serializable;
 
 import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+
+import annotations.NameValidation;
 
 public class YukyuBean implements Serializable {
 	private String id;
 	
-	@Size(min = 1, max = 30, message = "名前は1文字以上30文字以下である必要があります")
+	@NameValidation(message = "名前は1文字以上30文字以下である必要があります")
 	private String name;
 	
-	@Size(min = 1, max = 30, message = "パスワードは1文字以上30文字以下である必要があります")
+	@NameValidation(message = "パスワードは1文字以上30文字以下である必要があります")
 	private String password;	
 	
 	@PositiveOrZero
 	private int kanriFlg;
 	
-	@Size(max = 30, message = "部署は30文字以下である必要があります")
+	@NameValidation(message = "部署は1文字以上30文字以下である必要があります")
 	private String busyo;	
 
 	public void setId(String id) {

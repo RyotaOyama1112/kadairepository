@@ -37,11 +37,11 @@
                 <th scope="col">有給取得予定日</th>	
             </tr>
         </thead>
-        <form action="SyutokuYoteibi" method="post" class="text-right" id="updateForm">
+       <!--  <form action="SyutokuYoteibi" method="post" class="text-right" id="updateForm">
             <tr>
-                <td align="right" class="d-none"><input type="submit" value="更新" class="btn btn-primary"></td>
+                <td align="right"><input type="submit" value="更新" class="btn btn-primary"></td>
             </tr>
-        </form>
+        </form>-->
         <% for(int i = 0; i < sdto.size(); i++){
             SyutokuYoteibiBean sb = sdto.get(i);
         %>
@@ -51,8 +51,9 @@
         <% } %>
     </table>
 
-    <form action="/Yukyu/LoginForm" class="text-right">
-        <input type="submit" value="戻る" class="btn btn-secondary">
+    <!-- ログアウトボタンを右上に配置 -->
+    <form action="/Yukyu/LoginForm" class="position-fixed" style="top: 20px; right: 20px;">
+        <input type="submit" value="ログアウト" class="btn btn-secondary">
     </form>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -64,12 +65,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-
-    <script>
-        // ページ読み込み後に初期表示で更新ボタンをクリックする
-        window.onload = function() {
-            document.getElementById("updateForm").submit();
-        };
-    </script>
 </body>
 </html>

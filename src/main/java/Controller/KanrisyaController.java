@@ -37,7 +37,7 @@ public class KanrisyaController extends HttpServlet {
 		    name = req.getParameter("name");
 		    busyo = req.getParameter("busyo");
 		    kanriFlg = Integer.valueOf(req.getParameter("status"));
-		    KanrisyaDTO kdto = kdao.selectYukyu(yoteibi, name, busyo, kanriFlg);
+		    KanrisyaDTO kdto = kdao.select(yoteibi, name, busyo, kanriFlg);
 		    msg = "検索しました";
 		    session.setAttribute("KSkdto", kdto);
 		    req.setAttribute("kdto", kdto);
@@ -56,6 +56,7 @@ public class KanrisyaController extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException {
+		 System.out.println("doGet メソッドが呼ばれました");
 		doPost(req, res);
 	}
 }

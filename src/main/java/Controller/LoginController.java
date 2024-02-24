@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.UserJohoDAO;
+import DAO.YukyuSinseiDAO;
+import DTO.KanrisyaDTO;
+import DTO.SyutokuYoteibiDTO;
 
 @WebServlet("/LoginServlet")
 public class LoginController extends HttpServlet {
@@ -40,7 +43,6 @@ public class LoginController extends HttpServlet {
 
         try {
             try (ResultSet res = UserJohoDAO.executeLoginQuery(userId, password)) {
-                int kanriFlg = 0; 
 
                 if (res.next()) {
                     HttpSession session = request.getSession(true);
@@ -49,11 +51,19 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("user_KanriFlg", res.getInt("KanriFlg"));
 
                     UserJohoDAO lDAO = new UserJohoDAO();
-                    kanriFlg = lDAO.getFlg(userId); 
+                    int kanriFlg = lDAO.getFlg(userId); 
 
                     if (kanriFlg == 1) {
+                        // 全件検索を実行して結果を取得
+                        YukyuSinseiDAO sdao = new YukyuSinseiDAO();
+                        SyutokuYoteibiDTO sdto = sdao.select();
+                        request.setAttribute("sdto", sdto);
                         path = "WEB-INF/view/loginJugyouin.jsp";
                     } else if (kanriFlg == 3) {
+                    	// 全件検索を実行して結果を取得
+                    	YukyuSinseiDAO sdao = new YukyuSinseiDAO();
+                    	KanrisyaDTO kdto = sdao.select2();
+                    	request.setAttribute("kdto", kdto);
                         path = "WEB-INF/view/loginKanrisya.jsp";
                     }
                 } else {
