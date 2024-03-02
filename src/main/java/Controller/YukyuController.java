@@ -46,13 +46,10 @@ public class YukyuController extends HttpServlet {
 
             // バリデーションを実行
             List<String> errors = yukyuBean.validate();
-            if (errors.isEmpty()) {
-            // トランザクション内での処理
             Transaction.performTransaction(con -> {
                 ydao.insert(id, password, name, busyo, kanriFlg);
                 ydao2.insert(id, password, kanriFlg);
-            });
-            }else {
+            }); {
                 // バリデーションエラーがある場合の処理
                 req.setAttribute("errors", errors);
             }
