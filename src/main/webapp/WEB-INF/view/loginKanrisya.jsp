@@ -69,10 +69,10 @@
                 <tr>
                     <td align="center"><%= i + 1 %></td>
                     <td align="center"><%= kb.getYoteibi() %></td>
-                    <td align="center"><%= kb.getUserid() %></td>
+                    <td align="center"><%= kb.getUserID() %></td>
                     <td align="center">
                         <form action="/Yukyu/SyousaiServlet" method="post" >
-                            <input type="hidden" name="userid" id="userid" value="<%= kb.getUserid() %>">
+                            <input type="hidden" name="userid" id="userid" value="<%= kb.getUserID() %>">
                             <button type="submit" class="btn btn-info">詳細</button>
                         </form>
                     </td>
