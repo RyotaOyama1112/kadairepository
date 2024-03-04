@@ -32,11 +32,14 @@
     </form>
 
     <table class="table table-bordered mt-3">
-        <thead>
-            <tr>
-                <th scope="col">有給取得予定日</th>	
-            </tr>
-        </thead>
+<thead>
+    <tr>
+        <th scope="col" style="text-align: center;">有給取得予定日</th>
+        <th scope="col" style="text-align: center;">申請者</th>
+        <th scope="col" style="text-align: center;">部署</th>
+    </tr>
+</thead>
+
        <!--  <form action="SyutokuYoteibi" method="post" class="text-right" id="updateForm">
             <tr>
                 <td align="right"><input type="submit" value="更新" class="btn btn-primary"></td>
@@ -47,6 +50,8 @@
         %>
         <tr>
             <td align="center"><%= sb.getYoteibi() %></td>
+            <td align="center"><%= sb.getName() %></td>            
+            <td align="center"><%= sb.getBusyo() %></td>            
         </tr>
         <% } %>
     </table>

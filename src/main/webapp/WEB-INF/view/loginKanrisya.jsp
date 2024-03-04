@@ -59,6 +59,8 @@
                     <th scope="col">No</th>
                     <th scope="col">有給日時</th>
                     <th scope="col">UserID</th>
+                    <th scope="col">申請者</th>
+                    <th scope="col">部署名</th>
                     <th scope="col">詳細ボタン</th>
                 </tr>
             </thead>
@@ -70,6 +72,8 @@
                     <td align="center"><%= i + 1 %></td>
                     <td align="center"><%= kb.getYoteibi() %></td>
                     <td align="center"><%= kb.getUserID() %></td>
+                    <td align="center"><%= kb.getName() %></td>
+                    <td align="center"><%= kb.getBusyo() %></td>
                     <td align="center">
                         <form action="/Yukyu/SyousaiServlet" method="post" >
                             <input type="hidden" name="userid" id="userid" value="<%= kb.getUserID() %>">

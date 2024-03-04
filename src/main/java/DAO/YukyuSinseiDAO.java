@@ -218,6 +218,8 @@ public class YukyuSinseiDAO {
             while (rs.next()) {
                 SyutokuYoteibiBean sb = new SyutokuYoteibiBean();
                 sb.setYoteibi(rs.getDate("yoteibi"));
+                sb.setName(rs.getString("Name"));
+                sb.setBusyo(rs.getString("Busyo"));
                 sdto.add(sb);
             }
         } catch (Exception e) {
@@ -249,6 +251,8 @@ public class YukyuSinseiDAO {
                 KanrisyaBean kb = new KanrisyaBean();
                 kb.setYoteibi(rs.getDate("yoteibi"));
                 kb.setUserID(rs.getString("userID"));
+                kb.setName(rs.getString("name"));
+                kb.setBusyo(rs.getString("busyo"));
                 kdto.add(kb);
             }
         } catch (Exception e) {
