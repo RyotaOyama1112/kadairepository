@@ -6,7 +6,7 @@ import javax.validation.ConstraintValidatorContext;
 public class NameValidationValidator implements ConstraintValidator<NameValidation, String> {
 
     @Override
-    public void initialize(NameValidation nameValidation) {
+    public void initialize(NameValidation constraintAnnotation) {
     }
 
     @Override

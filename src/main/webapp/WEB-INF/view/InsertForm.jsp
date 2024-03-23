@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="bean.*"%>
+<%@ page import="java.util.List" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +14,7 @@
         /* 新規登録画面のタイトルを中央に配置するスタイル */
         .title {
             text-align: center;
-            margin-bottom: 30px; /* タイトルとフォームの間に余白を設ける */
+            margin-bottom: 30px; 
         }
     </style>
 </head>
@@ -27,6 +29,26 @@
         </div>
 
         <h2 class="title">新規登録画面</h2> <!-- タイトルを中央に配置 -->
+        
+                <!-- 登録完了メッセージを表示 -->
+        <% String msg = (String) request.getAttribute("msg"); %>
+        <% if (msg != null && !msg.isEmpty()) { %>
+            <div class="alert alert-success" role="alert">
+                <%= msg %>
+            </div>
+        <% } %>
+        
+                <%-- エラーメッセージがあれば表示 --%>
+        <% List<String> errors = (List<String>) request.getAttribute("errors"); %>
+        <% if (errors != null && !errors.isEmpty()) { %>
+            <div class="alert alert-danger">
+                <ul>
+                    <% for (String error : errors) { %>
+                        <li><%= error %></li>
+                    <% } %>
+                </ul>
+            </div>
+        <% } %>
 
         <form action="/Yukyu/yukyu" method="post">
             <div class="form-group row">

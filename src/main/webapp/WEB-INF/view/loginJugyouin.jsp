@@ -23,6 +23,18 @@
         こんにちは！所属部署が<%=userBusyo %>の<%=userId %>さん!
     </h2>
 
+        <div class="text">
+            <!-- バリデーションエラーメッセージの表示 -->
+            <%
+                String msg = (String) request.getAttribute("msg");
+                if (msg != null) {
+            %>
+            <%= msg %>
+            <%
+                }
+            %>
+        </div>
+
     <form action="SinseiServlet" method="post" class="text-right" id="syutokuForm">
         <div class="form-group">
             <label for="yoteibi">有給申請予定日</label>

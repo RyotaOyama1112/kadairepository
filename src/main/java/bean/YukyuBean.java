@@ -1,14 +1,9 @@
 package bean;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.validation.constraints.PositiveOrZero;
-
 import annotations.NameValidation;
 
-public class YukyuBean implements ValidatableBean {
+public class YukyuBean {
+    @NameValidation(message = "IDは1文字以上30文字以下である必要があります")
     private String id;
     
     @NameValidation(message = "名前は1文字以上30文字以下である必要があります")
@@ -17,7 +12,6 @@ public class YukyuBean implements ValidatableBean {
     @NameValidation(message = "パスワードは1文字以上30文字以下である必要があります")
     private String password;    
     
-    @PositiveOrZero
     private int kanriFlg;
     
     @NameValidation(message = "部署は1文字以上30文字以下である必要があります")
@@ -61,29 +55,5 @@ public class YukyuBean implements ValidatableBean {
     
     public String getBusyo() {
         return busyo;
-    }
-
-
-    @Override
-    public List<String> validate() {
-        List<String> errors = new ArrayList<>();
-        Field[] fields = this.getClass().getDeclaredFields();
-        
-        for (Field field : fields) {
-            if (field.isAnnotationPresent(NameValidation.class)) {
-                field.setAccessible(true);
-                try {
-                    String value = (String) field.get(this);
-                    NameValidation annotation = field.getAnnotation(NameValidation.class);
-                    if (value == null || value.isEmpty() || value.length() > 30) {
-                        errors.add(annotation.message());
-                    }
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        
-        return errors;
     }
 }

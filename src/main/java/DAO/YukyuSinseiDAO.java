@@ -31,7 +31,7 @@ public class YukyuSinseiDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         KanrisyaDTO kdto = new KanrisyaDTO();
-        String sql = "SELECT yoteibi, userID FROM 有給申請 WHERE yoteibi=? OR name=? OR busyo=? OR status_name=?";
+        String sql = "SELECT yoteibi, userID, Name, Busyo FROM 有給申請 WHERE yoteibi=? OR Name=? OR Busyo=? OR status_name=?";
         try {
             connect();
             // プリペアドステートメントを生成
@@ -48,6 +48,9 @@ public class YukyuSinseiDAO {
                 KanrisyaBean kb = new KanrisyaBean();
                 kb.setYoteibi(rs.getDate("yoteibi"));
                 kb.setUserID(rs.getString("userID"));
+                kb.setName(rs.getString("Name"));
+                kb.setBusyo(rs.getString("Busyo"));
+                
                 kdto.add(kb);
             }
         } catch (Exception e) {
@@ -159,8 +162,8 @@ public class YukyuSinseiDAO {
 
     // 従業員画面から申請日を追加するsql
     //旧YukyuInsert
-    public int insert(String userId, String yoteibi) {
-        String sql = "INSERT INTO 有給申請(userID, yoteibi, status_name) VALUES (?, ?, ?)";
+    public int insert(String userId, String Name, String Busyo, String yoteibi) {
+        String sql = "INSERT INTO 有給申請(userID, Name, Busyo, yoteibi, status_name) VALUES (?, ?, ?, ?, ?)";
         int result = 0;
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -171,8 +174,10 @@ public class YukyuSinseiDAO {
 
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, userId);
-            pstmt.setString(2, yoteibi);
-            pstmt.setInt(3, 1);
+            pstmt.setString(2, Name);
+            pstmt.setString(3, Busyo);
+            pstmt.setString(4, yoteibi);
+            pstmt.setInt(5, 1);
 
             result = pstmt.executeUpdate();
 
@@ -251,8 +256,8 @@ public class YukyuSinseiDAO {
                 KanrisyaBean kb = new KanrisyaBean();
                 kb.setYoteibi(rs.getDate("yoteibi"));
                 kb.setUserID(rs.getString("userID"));
-                kb.setName(rs.getString("name"));
-                kb.setBusyo(rs.getString("busyo"));
+                kb.setName(rs.getString("Name"));
+                kb.setBusyo(rs.getString("Busyo"));
                 kdto.add(kb);
             }
         } catch (Exception e) {
@@ -268,4 +273,42 @@ public class YukyuSinseiDAO {
         disconnect();
         return kdto;
     }
+    //useridでぶ部署と名前をとる
+   
+    public KanrisyaBean selectByUserID(String userId) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        KanrisyaBean bean = new KanrisyaBean(); // KanrisyaBean型のインスタンスを作成
+        String sql = "SELECT * FROM 有給申請 WHERE userID = ?";
+        try {
+            connect();
+            // プリペアドステートメントを生成
+            pstmt = con.prepareStatement(sql);
+            // パラメータを設定
+            pstmt.setString(1, userId);
+            // SQLを実行
+            rs = pstmt.executeQuery();
+            // 検索結果の処理
+            if (rs.next()) {
+                // 検索結果から取得した値をKanrisyaBeanにセット
+                bean.setName(rs.getString("Name"));
+                bean.setBusyo(rs.getString("Busyo"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            disconnect();
+        }
+        return bean;
+    }
+
+
 }
+
+

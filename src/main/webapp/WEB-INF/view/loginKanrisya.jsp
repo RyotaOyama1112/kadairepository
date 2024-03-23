@@ -40,6 +40,7 @@
                 <div class="form-group col-md-3">
                     <label for="status">ステータス</label>
                     <select class="form-control" name="status">
+                        <option value="0">選択してください</option>
                         <option value="1">申請中</option>
                         <option value="3">承認済</option>
                     </select>

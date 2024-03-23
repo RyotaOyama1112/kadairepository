@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.YukyuSinseiDAO;
+import DTO.KanrisyaDTO;
 import service.Transaction;
 
 @WebServlet("/HenkouServlet")
@@ -28,11 +29,13 @@ public class HenkouController extends HttpServlet {
             // updateStatusメソッドを呼び出してステータスを更新
             YukyuSinseiDAO.updateStatus(userId, yoteibi, newStatus);
             });
-
-        request.getSession().setAttribute("message", "変更が完了しました。");
         
-        String forwardJSP = "/WEB-INF/view/Syousai.jsp";
-        System.out.println(forwardJSP);
+    	// 全件検索を実行して結果を取得
+    	YukyuSinseiDAO sdao = new YukyuSinseiDAO();
+    	KanrisyaDTO kdto = sdao.select2();
+    	request.setAttribute("kdto", kdto);
+ 
+        String forwardJSP = "/WEB-INF/view/loginKanrisya.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(forwardJSP);
         dispatcher.forward(request, response);
     }

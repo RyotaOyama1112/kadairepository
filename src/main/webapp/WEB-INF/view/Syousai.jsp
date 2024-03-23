@@ -26,20 +26,6 @@
             String formattedYoteibi = (yoteibi != null) ? dateFormat.format(yoteibi) : "";
         %>
 
-        <%
-            // セッションからメッセージを取得
-            String message = (String)session.getAttribute("message");
-            // メッセージが存在する場合に表示
-            if (message != null && !message.isEmpty()) {
-        %>
-        <div class="alert alert-danger">
-            <%= message %>
-        </div>
-        <%
-            // メッセージを表示したら、セッションから削除
-            session.removeAttribute("message");
-            }
-        %>
     </div>
 
     <div class="row">
@@ -47,7 +33,7 @@
             <div class="mb-3">ユーザーID: <%= userid %></div>
             <div class="mb-3">氏名: <%= name %></div>
             <div class="mb-3">部署: <%= busyo %></div>
-            <div class="mb-3">ステータス: <%= status_name %></div>
+            <div class="mb-3">ステータス: <%= (status_name == 3) ? "承認済み" : "申請中" %></div>
             <div class="mb-3">予定日: <%= formattedYoteibi %></div>
         </div>
 
